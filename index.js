@@ -1,5 +1,5 @@
 const http = require('http')
-
+const url = require('url')
 class NewNode {
  constructor(data){
     this.data = data
@@ -23,9 +23,11 @@ class NextLink {
 }
 
 const server = http.createServer(async(req,res)=>{
-
-    const data = async() =>{
-        
+   console.log(url.parse(req.url).path)
+   try {
+    
+       const data = async() =>{
+           
         const item = await fetch('https://jsonplaceholder.typicode.com/users')
         const moreData = await item.json()
         return moreData    
@@ -40,6 +42,9 @@ const server = http.createServer(async(req,res)=>{
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
     res.setHeader('Access-Control-Allow-Headers', 'http://localhost:5173');
     res.end(JSON.stringify(result))
+} catch (error) {
+  console.log(error) 
+}
 })
 
 server.listen(3500 ,()=>console.log("http://localhost:3500"))
