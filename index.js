@@ -23,27 +23,23 @@ class NextLink {
 }
 
 const server = http.createServer(async(req,res)=>{
-  console.log(req.url)
+
     const data = async() =>{
         
-        const item = await fetch('https://jsonplaceholder.typicode.com'+req.url)
+        const item = await fetch('https://jsonplaceholder.typicode.com/users')
         const moreData = await item.json()
         return moreData    
     }
-    try {
-        
-        const newNextLink = new NextLink()
-        const content =await newNextLink.insertion(data())
-        const result = await content.data   
-        res.setHeader('Content-Type', 'application/json')
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-        res.setHeader('Access-Control-Request-Method', 'OPTIONS,GET , POST');
-        res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
-        res.setHeader('Access-Control-Allow-Headers', 'http://localhost:5173');
-        res.end(JSON.stringify(result))
-    } catch (error) {
-     console.log(error)   
-    }
-    })
+    
+    const newNextLink = new NextLink()
+    const content =await newNextLink.insertion(data())
+    const result = await content.data   
+    res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.setHeader('Access-Control-Request-Method', 'OPTIONS,GET , POST');
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'http://localhost:5173');
+    res.end(JSON.stringify(result))
+})
 
 server.listen(3500 ,()=>console.log("http://localhost:3500"))
