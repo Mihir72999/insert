@@ -42,7 +42,8 @@ const server = http.createServer(async(req,res)=>{
     res.setHeader('Access-Control-Request-Method', 'OPTIONS,GET , POST');
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
     res.setHeader('Access-Control-Allow-Headers', 'http://localhost:5173');
-    res.end(JSON.stringify(result))
+    const totalResult = {result:result.length , data:result}
+    res.end(JSON.stringify(totalResult))
 } catch (error) {
   console.log(error) 
 }
