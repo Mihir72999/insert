@@ -23,12 +23,13 @@ class NextLink {
 }
 
 const server = http.createServer(async(req,res)=>{
-   console.log(url.parse(req.url).path)
+   const paths =req.url == '/favicon.ico' || req.url == '/' ? "/users" :  url.parse(req.url).path
+    
    try {
     
        const data = async() =>{
            
-        const item = await fetch('https://jsonplaceholder.typicode.com/users')
+        const item = await fetch('https://jsonplaceholder.typicode.com'+ paths  )
         const moreData = await item.json()
         return moreData    
     }
